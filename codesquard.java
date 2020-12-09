@@ -44,5 +44,36 @@ public class codesquard {
 			}
 		}
 	}
+	
+	public static void F(boolean direction) {
+		char[] temp = new char[3];
+		if (direction) { // 시계 방향
+			for (int i = 0; i < 3; i++)
+				temp[i] = cube[0][2][i];
+			for (int i = 0; i < 3; i++) // 1 -> 0
+				cube[0][2][i] = cube[1][2 - i][2];
+			for (int i = 0; i < 3; i++) // 5 -> 1
+				cube[1][i][2] = cube[5][0][i];
+			for (int i = 0; i < 3; i++) // 3 -> 5
+				cube[5][0][i] = cube[3][2 - i][0];
+			for (int i = 0; i < 3; i++) // 0 -> 3
+				cube[3][i][0] = temp[i];
+		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
+			int count = 3;
+			while (count != 0) {
+				for (int i = 0; i < 3; i++)
+					temp[i] = cube[0][2][i];
+				for (int i = 0; i < 3; i++) // 1 -> 0
+					cube[0][2][i] = cube[1][2 - i][2];
+				for (int i = 0; i < 3; i++) // 5 -> 1
+					cube[1][i][2] = cube[5][0][i];
+				for (int i = 0; i < 3; i++) // 3 -> 5
+					cube[5][0][i] = cube[3][2 - i][0];
+				for (int i = 0; i < 3; i++) // 0 -> 3
+					cube[3][i][0] = temp[i];
+				count--;
+			}
+		}
+	}
 
 }
