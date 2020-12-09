@@ -11,224 +11,106 @@ public class codesquard {
 			for (int j = 0; j < 3; j++)
 				for (int k = 0; k < 3; k++)
 					cube[i][j][k] = color.charAt(i); // 문제에 명시된 초기 상태를 큐브에 입력
-		
+
+	}
+}
+
+	public static void rotateMyself(int idx) { // 해당 면 먼저 돌리기
+		char[] temp = new char[3];
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[idx][0][i];
+		for (int i = 0; i < 3; i++)
+			cube[idx][0][i] = cube[idx][2 - i][0];
+		for (int i = 0; i < 3; i++) // 5 -> 1
+			cube[idx][i][0] = cube[idx][2][i];
+		for (int i = 0; i < 3; i++) // 3 -> 5
+			cube[idx][2][i] = cube[idx][2 - i][2];
+		for (int i = 0; i < 3; i++) // 0 -> 3
+			cube[idx][i][2] = temp[i];
 	}
 
-	public static void rotateMyself(boolean direction, int idx) { // 해당 면 먼저 돌리기
+	public static void F() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향{
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[idx][0][i];
-			for (int i = 0; i < 3; i++)
-				cube[idx][0][i] = cube[idx][2 - i][0];
-			for (int i = 0; i < 3; i++) // 5 -> 1
-				cube[idx][i][0] = cube[idx][2][i];
-			for (int i = 0; i < 3; i++) // 3 -> 5
-				cube[idx][2][i] = cube[idx][2 - i][2];
-			for (int i = 0; i < 3; i++) // 0 -> 3
-				cube[idx][i][2] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[idx][0][i];
-				for (int i = 0; i < 3; i++)
-					cube[idx][0][i] = cube[idx][2 - i][0];
-				for (int i = 0; i < 3; i++) // 5 -> 1
-					cube[idx][i][0] = cube[idx][2][i];
-				for (int i = 0; i < 3; i++) // 3 -> 5
-					cube[idx][2][i] = cube[idx][2 - i][2];
-				for (int i = 0; i < 3; i++) // 0 -> 3
-					cube[idx][i][2] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[0][2][i];
+		for (int i = 0; i < 3; i++) // 1 -> 0
+			cube[0][2][i] = cube[1][2 - i][2];
+		for (int i = 0; i < 3; i++) // 5 -> 1
+			cube[1][i][2] = cube[5][0][i];
+		for (int i = 0; i < 3; i++) // 3 -> 5
+			cube[5][0][i] = cube[3][2 - i][0];
+		for (int i = 0; i < 3; i++) // 0 -> 3
+			cube[3][i][0] = temp[i];
 	}
 
-	public static void F(boolean direction) {
+	public static void B() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[0][2][i];
-			for (int i = 0; i < 3; i++) // 1 -> 0
-				cube[0][2][i] = cube[1][2 - i][2];
-			for (int i = 0; i < 3; i++) // 5 -> 1
-				cube[1][i][2] = cube[5][0][i];
-			for (int i = 0; i < 3; i++) // 3 -> 5
-				cube[5][0][i] = cube[3][2 - i][0];
-			for (int i = 0; i < 3; i++) // 0 -> 3
-				cube[3][i][0] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[0][2][i];
-				for (int i = 0; i < 3; i++) // 1 -> 0
-					cube[0][2][i] = cube[1][2 - i][2];
-				for (int i = 0; i < 3; i++) // 5 -> 1
-					cube[1][i][2] = cube[5][0][i];
-				for (int i = 0; i < 3; i++) // 3 -> 5
-					cube[5][0][i] = cube[3][2 - i][0];
-				for (int i = 0; i < 3; i++) // 0 -> 3
-					cube[3][i][0] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[0][0][2 - i];
+		for (int i = 0; i < 3; i++) // 3 -> 0
+			cube[0][0][i] = cube[3][i][2];
+		for (int i = 0; i < 3; i++) // 5 -> 3
+			cube[3][i][2] = cube[5][2][2 - i];
+		for (int i = 0; i < 3; i++) // 1 -> 5
+			cube[5][2][i] = cube[1][i][0];
+		for (int i = 0; i < 3; i++) // 0 -> 1
+			cube[1][i][0] = temp[i];
 	}
 
-	public static void B(boolean direction) {
+	public static void L() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[0][0][2 - i];
-			for (int i = 0; i < 3; i++) // 3 -> 0
-				cube[0][0][i] = cube[3][i][2];
-			for (int i = 0; i < 3; i++) // 5 -> 3
-				cube[3][i][2] = cube[5][2][2 - i];
-			for (int i = 0; i < 3; i++) // 1 -> 5
-				cube[5][2][i] = cube[1][i][0];
-			for (int i = 0; i < 3; i++) // 0 -> 1
-				cube[1][i][0] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[0][0][2 - i];
-				for (int i = 0; i < 3; i++) // 3 -> 0
-					cube[0][0][i] = cube[3][i][2];
-				for (int i = 0; i < 3; i++) // 5 -> 3
-					cube[3][i][2] = cube[5][2][2 - i];
-				for (int i = 0; i < 3; i++) // 1 -> 5
-					cube[5][2][i] = cube[1][i][0];
-				for (int i = 0; i < 3; i++) // 0 -> 1
-					cube[1][i][0] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[0][i][0];
+		for (int i = 0; i < 3; i++) // 4 -> 0
+			cube[0][i][0] = cube[4][2 - i][2];
+		for (int i = 0; i < 3; i++) // 5 -> 4
+			cube[4][i][2] = cube[5][2 - i][0];
+		for (int i = 0; i < 3; i++) // 2 -> 5
+			cube[5][i][0] = cube[2][i][0];
+		for (int i = 0; i < 3; i++) // 0 -> 2
+			cube[2][i][0] = temp[i];
 	}
 
-	public static void L(boolean direction) {
+	public static void R() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[0][i][0];
-			for (int i = 0; i < 3; i++) // 4 -> 0
-				cube[0][i][0] = cube[4][2 - i][2];
-			for (int i = 0; i < 3; i++) // 5 -> 4
-				cube[4][i][2] = cube[5][2 - i][0];
-			for (int i = 0; i < 3; i++) // 2 -> 5
-				cube[5][i][0] = cube[2][i][0];
-			for (int i = 0; i < 3; i++) // 0 -> 2
-				cube[2][i][0] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[0][i][0];
-				for (int i = 0; i < 3; i++) // 4 -> 0
-					cube[0][i][0] = cube[4][2 - i][2];
-				for (int i = 0; i < 3; i++) // 5 -> 4
-					cube[4][i][2] = cube[5][2 - i][0];
-				for (int i = 0; i < 3; i++) // 2 -> 5
-					cube[5][i][0] = cube[2][i][0];
-				for (int i = 0; i < 3; i++) // 0 -> 2
-					cube[2][i][0] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[0][2 - i][2];
+		for (int i = 0; i < 3; i++) // 2 -> 0
+			cube[0][i][2] = cube[2][i][2];
+		for (int i = 0; i < 3; i++) // 5 -> 2
+			cube[2][i][2] = cube[5][i][2];
+		for (int i = 0; i < 3; i++) // 4 -> 5
+			cube[5][i][2] = cube[4][2 - i][0];
+		for (int i = 0; i < 3; i++) // 0 -> 4
+			cube[4][i][0] = temp[i];
 	}
 
-	public static void R(boolean direction) {
+	public static void U() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[0][2 - i][2];
-			for (int i = 0; i < 3; i++) // 2 -> 0
-				cube[0][i][2] = cube[2][i][2];
-			for (int i = 0; i < 3; i++) // 5 -> 2
-				cube[2][i][2] = cube[5][i][2];
-			for (int i = 0; i < 3; i++) // 4 -> 5
-				cube[5][i][2] = cube[4][2 - i][0];
-			for (int i = 0; i < 3; i++) // 0 -> 4
-				cube[4][i][0] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[0][2 - i][2];
-				for (int i = 0; i < 3; i++) // 2 -> 0
-					cube[0][i][2] = cube[2][i][2];
-				for (int i = 0; i < 3; i++) // 5 -> 2
-					cube[2][i][2] = cube[5][i][2];
-				for (int i = 0; i < 3; i++) // 4 -> 5
-					cube[5][i][2] = cube[4][2 - i][0];
-				for (int i = 0; i < 3; i++) // 0 -> 4
-					cube[4][i][0] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[4][0][i];
+		for (int i = 0; i < 3; i++) // 1 -> 4
+			cube[4][0][i] = cube[1][0][i];
+		for (int i = 0; i < 3; i++) // 2 -> 1
+			cube[1][0][i] = cube[2][0][i];
+		for (int i = 0; i < 3; i++) // 3 -> 2
+			cube[2][0][i] = cube[3][0][i];
+		for (int i = 0; i < 3; i++) // 4 -> 3
+			cube[3][0][i] = temp[i];
 	}
 
-	public static void U(boolean direction) {
+	public static void D() {
 		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[4][0][i];
-			for (int i = 0; i < 3; i++) // 1 -> 4
-				cube[4][0][i] = cube[1][0][i];
-			for (int i = 0; i < 3; i++) // 2 -> 1
-				cube[1][0][i] = cube[2][0][i];
-			for (int i = 0; i < 3; i++) // 3 -> 2
-				cube[2][0][i] = cube[3][0][i];
-			for (int i = 0; i < 3; i++) // 4 -> 3
-				cube[3][0][i] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[4][0][i];
-				for (int i = 0; i < 3; i++) // 1 -> 4
-					cube[4][0][i] = cube[1][0][i];
-				for (int i = 0; i < 3; i++) // 2 -> 1
-					cube[1][0][i] = cube[2][0][i];
-				for (int i = 0; i < 3; i++) // 3 -> 2
-					cube[2][0][i] = cube[3][0][i];
-				for (int i = 0; i < 3; i++) // 4 -> 3
-					cube[3][0][i] = temp[i];
-				count--;
-			}
-		}
-	}
-
-	public static void D(boolean direction) {
-		char[] temp = new char[3];
-		if (direction) { // 시계 방향
-			for (int i = 0; i < 3; i++)
-				temp[i] = cube[2][2][i];
-			for (int i = 0; i < 3; i++) // 1 -> 2
-				cube[2][2][i] = cube[1][2][i];
-			for (int i = 0; i < 3; i++) // 4 -> 1
-				cube[1][2][i] = cube[4][2][i];
-			for (int i = 0; i < 3; i++) // 3 -> 4
-				cube[4][2][i] = cube[3][2][i];
-			for (int i = 0; i < 3; i++) // 2 -> 3
-				cube[3][2][i] = temp[i];
-		} else { // 반시계 방향(== 시계방향으로 3번 돌리기)
-			int count = 3;
-			while (count != 0) {
-				for (int i = 0; i < 3; i++)
-					temp[i] = cube[2][2][i];
-				for (int i = 0; i < 3; i++) // 1 -> 2
-					cube[2][2][i] = cube[1][2][i];
-				for (int i = 0; i < 3; i++) // 4 -> 1
-					cube[1][2][i] = cube[4][2][i];
-				for (int i = 0; i < 3; i++) // 3 -> 4
-					cube[4][2][i] = cube[3][2][i];
-				for (int i = 0; i < 3; i++) // 2 -> 3
-					cube[3][2][i] = temp[i];
-				count--;
-			}
-		}
+		for (int i = 0; i < 3; i++)
+			temp[i] = cube[2][2][i];
+		for (int i = 0; i < 3; i++) // 1 -> 2
+			cube[2][2][i] = cube[1][2][i];
+		for (int i = 0; i < 3; i++) // 4 -> 1
+			cube[1][2][i] = cube[4][2][i];
+		for (int i = 0; i < 3; i++) // 3 -> 4
+			cube[4][2][i] = cube[3][2][i];
+		for (int i = 0; i < 3; i++) // 2 -> 3
+			cube[3][2][i] = temp[i];
 	}
 
 	public static void print() { // 문제에 명시된 출력 양식 만들기
