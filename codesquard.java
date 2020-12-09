@@ -11,7 +11,7 @@ public class codesquard {
 			for (int j = 0; j < 3; j++)
 				for (int k = 0; k < 3; k++)
 					cube[i][j][k] = color.charAt(i); // 문제에 명시된 초기 상태를 큐브에 입력
-
+		
 	}
 
 	public static void rotateMyself(boolean direction, int idx) { // 해당 면 먼저 돌리기
@@ -228,6 +228,36 @@ public class codesquard {
 					cube[3][2][i] = temp[i];
 				count--;
 			}
+		}
+	}
+
+	public static void print() { // 문제에 명시된 출력 양식 만들기
+		for (int i = 0; i < 3; i++) {
+			System.out.print("              ");
+			for (int j = 0; j < 3; j++) {
+				System.out.print(cube[0][i][j] + " ");
+			}
+			System.out.println();
+		}
+		System.out.println();
+
+		for (int i = 0; i < 3; i++) {
+			for (int idx = 1; idx <= 4; idx++) {
+				for (int j = 0; j < 3; j++) {
+					System.out.print(cube[idx][i][j] + " ");
+				}
+				System.out.print("   ");
+			}
+			System.out.println();
+		}
+
+		System.out.println();
+		for (int i = 0; i < 3; i++) {
+			System.out.print("              ");
+			for (int j = 0; j < 3; j++) {
+				System.out.print(cube[5][i][j] + " ");
+			}
+			System.out.println();
 		}
 	}
 
