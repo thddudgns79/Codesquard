@@ -3,7 +3,7 @@ import java.util.*;
 public class codesquard {
 	static char[][][] cube;
 	static String color = "BWOGYR"; // 초기 상태
-	
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		cube = new char[6][3][3]; // 큐브의 6면에 대해 각각 3 x 3 배열 생성(U = 0 / L = 1 / F = 2 / R = 3 / B = 4 / D = 5)
@@ -11,10 +11,23 @@ public class codesquard {
 			for (int j = 0; j < 3; j++)
 				for (int k = 0; k < 3; k++)
 					cube[i][j][k] = color.charAt(i); // 문제에 명시된 초기 상태를 큐브에 입력
-		
-		
-	}
 
+		String input = ""; // 조작법 담을 문자열
+		System.out.println("(초기 상태 출력)");
+		print(); // 초기상태 출력
+		int operationCount = 0; // 조작 횟수
+		while (true) {
+			System.out.print("CUBE> ");
+			input = sc.next(); // 조작법 입력
+			if (input.equals("Q")) {
+				System.out.println("조작갯수: " + operationCount);
+				System.out.println("이용해주셔서  감사합니다! 뚜뚜뚜");
+				break;
+			}
+			operationCount += inputProcessing(input); // 이번 조작에 대한 조작 횟수 추가
+		}
+
+	}
 
 	public static void rotateMyself(int idx) { // 해당 면 먼저 돌리기
 		char[] temp = new char[3];
@@ -143,12 +156,12 @@ public class codesquard {
 			System.out.println();
 		}
 	}
-	
-	public static int inputProcessing(String input) { 
+
+	public static int inputProcessing(String input) {
 		int count = 0;
 		int n = input.length();
 		int idx = 0; // 조작법 문자열 인덱스 --> 입력문자열의 인덱스를 하나하나 탐색해가며 큐브 조작
-		while (idx < n) { 
+		while (idx < n) {
 			if (idx == n - 1) { // 마지막 인덱스인 경우(' 혹은 2인 경우 현재 인덱스에 접근하지 못하고 이미 종료됐음)
 				if (input.charAt(idx) == 'F') {
 					rotateMyself(2);
