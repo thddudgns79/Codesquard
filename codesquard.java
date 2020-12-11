@@ -7,24 +7,62 @@ public class codesquard {
 		char[][] board = new char[3][3];
 		boardSetting(board);
 		
+				
+			
+			
+		
 	}
 
-	public static String push(String input, boolean direction) { // 입력된 방향대로 미는 동작 수행
+	public static void push(char[][] board, boolean direction, char location) { // 입력된 방향대로 미는 동작 수행
 		Queue<Character> q = new LinkedList<Character>();
-		for (int i = 0; i < input.length(); i++)
-			q.add(input.charAt(i));
-
-		q.add(q.remove()); // 미는 방향이 왼쪽 = 큐에서 1번만 빼기
-		if (!direction) // 미는 방향이 반대 = 큐에서 2번 빼기
+		if (location == 'U') {
+			for(int i = 0; i < 3; i++)
+				q.add(board[0][i]);
+			
 			q.add(q.remove());
+			if(!direction)
+				q.add(q.remove());
+			
+			for (int i = 0; i < 3; i++)
+				board[0][i] = q.remove();
+		}
+		if (location == 'R') {
+			for(int i = 0; i < 3; i++)
+				q.add(board[i][2]);
+			
+			q.add(q.remove());
+			if(!direction)
+				q.add(q.remove());
+			
+			for (int i = 0; i < 3; i++)
+				board[i][2] = q.remove();
+		}
+		if (location == 'L') {
+			for(int i = 2; i >= 0; i--)
+				q.add(board[i][0]);
+			
+			q.add(q.remove());
+			if(!direction)
+				q.add(q.remove());
+			
+			for (int i = 2; i >= 0; i--)
+				board[i][0] = q.remove();
+		}
+		if (location == 'B') {
+			for(int i = 2; i >= 0; i--)
+				q.add(board[2][i]);
+			
+			q.add(q.remove());
+			if(!direction)
+				q.add(q.remove());
+			
+			for(int i = 2; i >= 0; i--)
+				board[2][i] = q.remove();
+		}
 
-		String result = "";
-		while (!q.isEmpty())
-			result += q.remove(); // 문자열에 결과값을 담아 반환
-		return result;
 	}
-	
-	public static void boardSetting(char[][] board) { // 초기 배열 상태 입력
+
+	public static void boardSetting(char[][] board) { // 초기 큐브 상태 입력
 		board[0][0] = 'R';
 		board[0][1] = 'R';
 		board[0][2] = 'W';
@@ -33,6 +71,8 @@ public class codesquard {
 		board[1][2] = 'W';
 		board[2][0] = 'G';
 		board[2][1] = 'B';
-		board[2][2] = 'B'; 
+		board[2][2] = 'B';
 	}
+
+	
 }
