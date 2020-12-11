@@ -5,8 +5,9 @@ public class codesquard {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		char[][] board = new char[3][3];
-		boardSetting(board);
-
+		boardSetting(board); // 큐브의 초기 상태 세팅
+		print(board); // 초기 상태 출력
+		input(board); // 커맨드 입력 및 처리
 	}
 
 	public static void push(char[][] board, boolean direction, char location) { // 입력된 방향대로 미는 동작 수행
@@ -79,6 +80,52 @@ public class codesquard {
 		}
 		System.out.println();
 		System.out.println();
+	}
+	
+	public static void input(char[][] board) { // 커맨드 입력 및 처리
+		while (true) {
+			System.out.print("CUBE> ");
+			String commands = sc.next();
+			if (commands.equals("Q")) {
+				System.out.println("Bye~");
+				break;
+			}
+			int idx = 0;
+			int n = commands.length();
+			while (idx < n) { // 커맨드 문자열의 인덱스를 하나하나씩 탐색 
+				if (idx + 1 < n && commands.charAt(idx + 1) == '\'') { // 역방향
+					if (commands.charAt(idx) == 'U')
+						Ub(board);
+
+					if (commands.charAt(idx) == 'R')
+						Rb(board);
+
+					if (commands.charAt(idx) == 'L')
+						Lb(board);
+
+					if (commands.charAt(idx) == 'B')
+						Bb(board);
+
+					idx += 2;
+				}
+
+				else { // 정방향
+					if (commands.charAt(idx) == 'U')
+						U(board);
+
+					if (commands.charAt(idx) == 'R')
+						R(board);
+
+					if (commands.charAt(idx) == 'L')
+						L(board);
+
+					if (commands.charAt(idx) == 'B')
+						B(board);
+
+					idx++;
+				}
+			}
+		}
 	}
 
 	public static void U(char[][] board) { // U 조작에 대한 push 수행 
