@@ -28,5 +28,31 @@ public class codesquard {
 		deque.addFirst(deque.removeLast());
 	}
 	
+	public static void solve() {
+		if (dir == 'L' || dir == 'l') { // 방향이 왼쪽일 경우 
+			if (cnt >= 0) { // 숫자가 +
+				for (int i = 0; i < cnt; i++) { 
+					pushLeft();
+				}
+			} else {  // 숫자가 -
+				for (int i = 0; i < Math.abs(cnt); i++) {
+					pushRight();
+				}
+			}
+		}
+
+		else {     // 방향이 오른쪽일 경우
+			if (cnt >= 0) { // 숫자가 +
+				for (int i = 0; i < cnt; i++) {
+					pushRight();
+				}
+			} else { // 숫자가 -
+				for (int i = 0; i < Math.abs(cnt); i++) {
+					pushLeft();
+				}
+			}
+		}
+	}
+	
 
 }
