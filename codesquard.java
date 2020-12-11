@@ -3,29 +3,18 @@ import java.util.*;
 public class codesquard {
 	static char[][][] cube;
 	static String color = "BWOGYR"; // 초기 상태
-
+	static Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		cube = new char[6][3][3]; // 큐브의 6면에 대해 각각 3 x 3 배열 생성(U = 0 / L = 1 / F = 2 / R = 3 / B = 4 / D = 5)
 		for (int i = 0; i < 6; i++)
 			for (int j = 0; j < 3; j++)
 				for (int k = 0; k < 3; k++)
 					cube[i][j][k] = color.charAt(i); // 문제에 명시된 초기 상태를 큐브에 입력
 
-		String input = ""; // 조작법 담을 문자열
 		System.out.println("(초기 상태 출력)");
 		print(); // 초기상태 출력
-		int operationCount = 0; // 조작 횟수
-		while (true) {
-			System.out.print("CUBE> ");
-			input = sc.next(); // 조작법 입력
-			if (input.equals("Q")) {
-				System.out.println("조작갯수: " + operationCount);
-				System.out.println("이용해주셔서  감사합니다! 뚜뚜뚜");
-				break;
-			}
-			operationCount += inputProcessing(input); // 이번 조작에 대한 조작 횟수 추가
-		}
+		inputProcessing();
 
 	}
 
@@ -156,237 +145,195 @@ public class codesquard {
 			System.out.println();
 		}
 	}
-
-	public static int inputProcessing(String input) {
-		int count = 0;
-		int n = input.length();
-		int idx = 0; // 조작법 문자열 인덱스 --> 입력문자열의 인덱스를 하나하나 탐색해가며 큐브 조작
-		while (idx < n) {
-			if (idx == n - 1) { // 마지막 인덱스인 경우(' 혹은 2인 경우 현재 인덱스에 접근하지 못하고 이미 종료됐음)
-				if (input.charAt(idx) == 'F') {
-					rotateMyself(2);
-					F();
-					System.out.println("F");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'B') {
-					rotateMyself(4);
-					B();
-					System.out.println("B");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'L') {
-					rotateMyself(1);
-					L();
-					System.out.println("L");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'R') {
-					rotateMyself(3);
-					R();
-					System.out.println("R");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'U') {
-					rotateMyself(0);
-					U();
-					System.out.println("U");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'D') {
-					rotateMyself(5);
-					D();
-					System.out.println("D");
-					print();
-					count++;
-				}
-				idx++;
-				continue;
+	
+	public static void inputProcessing() {
+		int count = 0; // 조작 횟수
+		while (true) {
+			System.out.print("CUBE> ");
+			String commands = sc.next(); // 조작법 입력
+			if (commands.equals("Q")) {
+				System.out.println("조작갯수: " + count);
+				System.out.println("이용해주셔서  감사합니다! 뚜뚜뚜");
+				break;
 			}
 
-			else if (input.charAt(idx + 1) == '2') { // 현재 인덱스 바로 앞이 2인 경우 --> 큐브 시계방향으로 2번 돌리기
-				if (input.charAt(idx) == 'F') {
-					rotateMyself(2);
-					rotateMyself(2);
-					F();
-					F();
-					System.out.println("F2");
-					print();
-					count += 2;
+			int n = commands.length();
+			int idx = 0; // 조작법 문자열 인덱스 --> 입력문자열의 인덱스를 하나하나 탐색해가며 큐브 조작
+			while (idx < n) {
+				if (idx + 1 < n && commands.charAt(idx + 1) == '2') { // F,B,L,R,U,D + 2
+					if (commands.charAt(idx) == 'F') {
+						rotateMyself(2);
+						rotateMyself(2);
+						F();
+						F();
+						System.out.println("F2");
+						print();
+						count += 2;
+					}
+					if (commands.charAt(idx) == 'B') {
+						rotateMyself(4);
+						rotateMyself(4);
+						B();
+						B();
+						System.out.println("B2");
+						print();
+						count += 2;
+					}
+					if (commands.charAt(idx) == 'L') {
+						rotateMyself(1);
+						rotateMyself(1);
+						L();
+						L();
+						System.out.println("L2");
+						print();
+						count += 2;
+					}
+					if (commands.charAt(idx) == 'R') {
+						rotateMyself(3);
+						rotateMyself(3);
+						R();
+						R();
+						System.out.println("R2");
+						print();
+						count += 2;
+					}
+					if (commands.charAt(idx) == 'U') {
+						rotateMyself(0);
+						rotateMyself(0);
+						U();
+						U();
+						System.out.println("U2");
+						print();
+						count += 2;
+					}
+					if (commands.charAt(idx) == 'D') {
+						rotateMyself(5);
+						rotateMyself(5);
+						D();
+						D();
+						System.out.println("D2");
+						print();
+						count += 2;
+					}
+					idx += 2;
 				}
-				if (input.charAt(idx) == 'B') {
-					rotateMyself(4);
-					rotateMyself(4);
-					B();
-					B();
-					System.out.println("B2");
-					print();
-					count += 2;
-				}
-				if (input.charAt(idx) == 'L') {
-					rotateMyself(1);
-					rotateMyself(1);
-					L();
-					L();
-					System.out.println("L2");
-					print();
-					count += 2;
-				}
-				if (input.charAt(idx) == 'R') {
-					rotateMyself(3);
-					rotateMyself(3);
-					R();
-					R();
-					System.out.println("R2");
-					print();
-					count += 2;
-				}
-				if (input.charAt(idx) == 'U') {
-					rotateMyself(0);
-					rotateMyself(0);
-					U();
-					U();
-					System.out.println("U2");
-					print();
-					count += 2;
-				}
-				if (input.charAt(idx) == 'D') {
-					rotateMyself(5);
-					rotateMyself(5);
-					D();
-					D();
-					System.out.println("D2");
-					print();
-					count += 2;
-				}
-				idx += 2;
-				continue;
-			}
 
-			else if (input.charAt(idx + 1) == '\'') { // 현재 인덱스 바로 앞이 '인 경우 --> 큐브 시계방향으로 3번 돌리기 == 반시계방향 1번 돌리기
-				if (input.charAt(idx) == 'F') {
-					rotateMyself(2);
-					rotateMyself(2);
-					rotateMyself(2);
-					F();
-					F();
-					F();
-					System.out.println("F'");
-					print();
-					count++;
+				else if (idx + 1 < n && commands.charAt(idx + 1) == '\'') { // F,B,L,R,U,D + '
+					if (commands.charAt(idx) == 'F') {
+						rotateMyself(2);
+						rotateMyself(2);
+						rotateMyself(2);
+						F();
+						F();
+						F();
+						System.out.println("F'");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'B') {
+						rotateMyself(4);
+						rotateMyself(4);
+						rotateMyself(4);
+						B();
+						B();
+						B();
+						System.out.println("B'");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'L') {
+						rotateMyself(1);
+						rotateMyself(1);
+						rotateMyself(1);
+						L();
+						L();
+						L();
+						System.out.println("L'");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'R') {
+						rotateMyself(3);
+						rotateMyself(3);
+						rotateMyself(3);
+						R();
+						R();
+						R();
+						System.out.println("R'");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'U') {
+						rotateMyself(0);
+						rotateMyself(0);
+						rotateMyself(0);
+						U();
+						U();
+						U();
+						System.out.println("U'");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'D') {
+						rotateMyself(5);
+						rotateMyself(5);
+						rotateMyself(5);
+						D();
+						D();
+						D();
+						System.out.println("D'");
+						print();
+						count++;
+					}
+					idx += 2;
 				}
-				if (input.charAt(idx) == 'B') {
-					rotateMyself(4);
-					rotateMyself(4);
-					rotateMyself(4);
-					B();
-					B();
-					B();
-					System.out.println("B'");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'L') {
-					rotateMyself(1);
-					rotateMyself(1);
-					rotateMyself(1);
-					L();
-					L();
-					L();
-					System.out.println("L'");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'R') {
-					rotateMyself(3);
-					rotateMyself(3);
-					rotateMyself(3);
-					R();
-					R();
-					R();
-					System.out.println("R'");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'U') {
-					rotateMyself(0);
-					rotateMyself(0);
-					rotateMyself(0);
-					U();
-					U();
-					U();
-					System.out.println("U'");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'D') {
-					rotateMyself(5);
-					rotateMyself(5);
-					rotateMyself(5);
-					D();
-					D();
-					D();
-					System.out.println("D'");
-					print();
-					count++;
-				}
-				idx += 2;
-				continue;
-			}
 
-			else { // 현재 인덱스 바로 앞이 그냥 알파벳인 경우
-				if (input.charAt(idx) == 'F') {
-					rotateMyself(2);
-					F();
-					System.out.println("F");
-					print();
-					count++;
+				else { // F,B,L,R,U,D 
+					if (commands.charAt(idx) == 'F') {
+						rotateMyself(2);
+						F();
+						System.out.println("F");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'B') {
+						rotateMyself(4);
+						B();
+						System.out.println("B");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'L') {
+						rotateMyself(1);
+						L();
+						System.out.println("L");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'R') {
+						rotateMyself(3);
+						R();
+						System.out.println("R");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'U') {
+						rotateMyself(0);
+						U();
+						System.out.println("U");
+						print();
+						count++;
+					}
+					if (commands.charAt(idx) == 'D') {
+						rotateMyself(5);
+						D();
+						System.out.println("D");
+						print();
+						count++;
+					}
+					idx++;
 				}
-				if (input.charAt(idx) == 'B') {
-					rotateMyself(4);
-					B();
-					System.out.println("B");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'L') {
-					rotateMyself(1);
-					L();
-					System.out.println("L");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'R') {
-					rotateMyself(3);
-					R();
-					System.out.println("R");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'U') {
-					rotateMyself(0);
-					U();
-					System.out.println("U");
-					print();
-					count++;
-				}
-				if (input.charAt(idx) == 'D') {
-					rotateMyself(5);
-					D();
-					System.out.println("D");
-					print();
-					count++;
-				}
-				idx++;
-				continue;
 			}
 		}
-		return count;
 	}
-
 }
