@@ -8,7 +8,8 @@ public class codesquard {
 	
 	public static void main(String[] args) {
 		input();
-
+		solve();
+		print();
 	}
 
 	public static void input() { // 입력 처리 
@@ -54,5 +55,9 @@ public class codesquard {
 		}
 	}
 	
+	public static void print() {
+		while (!deque.isEmpty())
+			System.out.print(deque.remove());
+	}
 
 }
