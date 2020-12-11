@@ -81,6 +81,8 @@ public class codesquard {
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
 	}
 
 	
