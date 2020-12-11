@@ -11,13 +11,21 @@ public class codesquard {
 
 	}
 
-	public static void input() {
+	public static void input() { // 입력 처리 
 		System.out.print("> ");
 		str = sc.next();
 		cnt = sc.nextInt();
 		dir = sc.next().charAt(0);
 		for(int i = 0; i < str.length(); i++)
 			deque.add(str.charAt(i));
+	}
+	
+	public static void pushLeft() { // 왼쪽으로 1번 밀기
+		deque.addLast(deque.removeFirst());
+	}
+
+	public static void pushRight() { //오른쪽으로 1번 밀기
+		deque.addFirst(deque.removeLast());
 	}
 	
 
