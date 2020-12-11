@@ -5,15 +5,8 @@ public class codesquard {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		char[][] board = new char[3][3];
-		board[0][0] = 'R';
-		board[0][1] = 'R';
-		board[0][2] = 'W';
-		board[1][0] = 'G';
-		board[1][1] = 'C';
-		board[1][2] = 'W';
-		board[2][0] = 'G';
-		board[2][1] = 'B';
-		board[2][2] = 'B'; // 초기 상태 
+		boardSetting(board);
+		
 	}
 
 	public static String push(String input, boolean direction) { // 입력된 방향대로 미는 동작 수행
@@ -30,5 +23,16 @@ public class codesquard {
 			result += q.remove(); // 문자열에 결과값을 담아 반환
 		return result;
 	}
-
+	
+	public static void boardSetting(char[][] board) { // 초기 배열 상태 입력
+		board[0][0] = 'R';
+		board[0][1] = 'R';
+		board[0][2] = 'W';
+		board[1][0] = 'G';
+		board[1][1] = 'C';
+		board[1][2] = 'W';
+		board[2][0] = 'G';
+		board[2][1] = 'B';
+		board[2][2] = 'B'; 
+	}
 }
