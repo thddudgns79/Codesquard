@@ -1,9 +1,8 @@
 import java.util.*;
 
 public class codesquard {
-
+	static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		char[][] board = new char[3][3];
 		boardSetting(board); // 큐브의 초기 상태 세팅
 		print(board); // 초기 상태 출력
