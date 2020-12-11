@@ -13,9 +13,9 @@ public class codesquard {
 
 	public static void input() {
 		System.out.print("> ");
-		String str = sc.next();
-		int cnt = sc.nextInt();
-		char dir = sc.next().charAt(0);
+		str = sc.next();
+		cnt = sc.nextInt();
+		dir = sc.next().charAt(0);
 		for(int i = 0; i < str.length(); i++)
 			deque.add(str.charAt(i));
 	}
